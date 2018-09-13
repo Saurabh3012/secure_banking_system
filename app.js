@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var mongoose = require('mongoose');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +27,14 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+// mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/secure_banking_server', { "useNewUrlParser": true }, function (err, result) {
+    if(err) throw err;
+    console.log("Connection Successful!");
+});
+
 
 // error handler
 app.use(function(err, req, res, next) {
