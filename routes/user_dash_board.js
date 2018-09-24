@@ -11,7 +11,8 @@ router.post('/', function (req, res, next) {
 
     // TODO: create a new table for transactions
 
-    // TODO: query for the trasactions, and pass user_id to this page
+
+    // TODO: query for the transactions, and pass user_id to this page
 
     users_data.find({}).then(function (doc) {
         res.send(doc);

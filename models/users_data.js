@@ -6,4 +6,4 @@ var userAuthSchema = new mongoose.Schema({
     password: {type: String}
     });
 
-module.exports = mongoose.model('userAuthSchema', userAuthSchema, "users_data");
+module.exports = mongoose.model('userAuthSchema', userAuthSchema, "ids_n_passwords");
