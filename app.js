@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var dashboard = require('./routes/user_dash_board');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -30,7 +32,7 @@ app.use(function(req, res, next) {
 
 
 // mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/secure_banking_server', { "useNewUrlParser": true }, function (err, result) {
+mongoose.connect('mongodb://localhost:27017/personell_details_db', { "useNewUrlParser": true }, function (err, result) {
     if(err) throw err;
     console.log("Connection Successful!");
 });

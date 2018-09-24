@@ -10,8 +10,10 @@ router.post('/', function (req, res, next) {
     var user_name = req.body.user_name;
     var password = req.body.password;
 
-    users_data.find().then(function (doc) {
+    users_data.find({'\ufeffuser_id': user_name}).then(function (doc) {
         res.send(doc);
+    }).catch(function (e) {
+        console.error(e);
     })
 });
 
@@ -19,12 +21,12 @@ router.get('/', function (req, res, next) {
     // users_data.find({"User ID": 76000}).then(function (doc) {
     //     console.log(doc);
     //     res.send(doc);
-    // })
+    // })q
 
-    users_data.find({user_id: "76000"}, function (err,result) {
+    users_data.find( function (err,result) {
         if (err) throw err;
-        console.log(result)
-        res.send("ghanta")
+        console.log(result);
+        res.send("result")
 
     });
 
