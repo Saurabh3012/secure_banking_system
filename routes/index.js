@@ -1,22 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
-
 var users_data = require('../models/users_data');
 
-
-
 // login
-router.post('/', function (req, res, next) {
-    var user_name = req.body.user_name;
-    var password = req.body.password;
+router.post('/login', function (req, res, next) {
+    var user_name = req.body.user_id;
+    var pwd = req.body.password;
 
-    users_data.find({'\ufeffuser_id': user_name}).then(function (doc) {
-        // comapre the password.
-
+    // compare the password.
+    users_data.find({'user_id': user_name, 'password': pwd}, function(err, user){
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).send();
+        }
+        if(!user)
+        {
+            console.log("Invalid Username or Password");
+            return console.status(404).send();
+        }
         // if ok, then redirect to account summary.
-
-        res.send(doc);
+        return res.redirect('/user_dash_board', user_name);
     }).catch(function (e) {
         console.error(e);
     })
@@ -32,9 +37,7 @@ router.get('/', function (req, res, next) {
         if (err) throw err;
         console.log(result);
         res.send("result")
-
     });
-
 });
 
 module.exports = router;
