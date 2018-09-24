@@ -5,18 +5,20 @@ var router = express.Router();
 var users_data = require('../models/users_data');
 
 
-
-router.post('/', function (req, res, next) {
-    var user_name = req.body.user_name;
+router.post('/external_transaction', function (req, res, next) {
+    var user_id = req.body.user_id;
 
     // TODO: create a new table for transactions
-    
 
     // TODO: query for the transactions, and pass user_id to this page
 
-    users_data.find({}).then(function (doc) {
-        res.send(doc);
-    })
+    // TODO: Crate a tab;e for account numbers.
+    var sender_acc = req.body.sender_acc_num;
+    var receiver_acc = req.body.receiver_acc_num;
+    var amount = req.body.amount;
+    var remarks = req.body.remarks;
+    var status = "Pending";
+    users_transactions.insertOne(user_id, sender_acc, receiver_acc, amount, remarks, status);
 });
 
 module.exports = router;

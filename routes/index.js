@@ -31,4 +31,29 @@ router.post('/', function (req, res, next) {
 });
 
 
+
+
+router.post('/login', function (req, res, next) {
+    var user_name = req.body.user_id;
+    var pwd = req.body.password;
+
+    // compare the password.
+    users_data.find({'user_id': user_name, 'password': pwd}, function(err, user){
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).send();
+        }
+        if(!user)
+        {
+            console.log("Invalid Username or Password");
+            return console.status(404).send();
+        }
+        // if ok, then redirect to account summary.
+        return res.redirect('/user_dash_board', user_name);
+    }).catch(function (e) {
+        console.error(e);
+    })
+});
+
 module.exports = router;
