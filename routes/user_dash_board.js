@@ -10,7 +10,7 @@ router.post('/external_transaction', function (req, res, next) {
 
     // TODO: query for the transactions, and pass user_id to this page
 
-    // TODO: Crate a tab;e for account numbers. 
+    // TODO: Crate a tab;e for account numbers.
     var sender_acc = req.body.sender_acc_num;
     var receiver_acc = req.body.receiver_acc_num;
     var amount = req.body.amount;
