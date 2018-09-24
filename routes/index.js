@@ -6,11 +6,16 @@ var users_data = require('../models/users_data');
 
 
 
+// login
 router.post('/', function (req, res, next) {
     var user_name = req.body.user_name;
     var password = req.body.password;
 
     users_data.find({'\ufeffuser_id': user_name}).then(function (doc) {
+        // comapre the password.
+
+        // if ok, then redirect to account summary.
+
         res.send(doc);
     }).catch(function (e) {
         console.error(e);
