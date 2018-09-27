@@ -50,7 +50,7 @@ router.post('/login', function (req, res, next) {
             return console.status(404).send();
         }
         // if ok, then redirect to account summary.
-        return res.redirect('/user_dash_board', user_name);
+        return res.redirect('./routes/user_dash_board');
     }).catch(function (e) {
         console.error(e);
     })

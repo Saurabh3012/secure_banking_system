@@ -4,4 +4,4 @@
 
 // use proper logic,
 
-// ouput: updated db, status.
+// output: updated db, status.
