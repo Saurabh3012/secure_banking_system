@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-<<<<<<< HEAD
 var users_transactions = require('../models/users_transaction');
 
 router.get('/', function(res,req) {
@@ -21,7 +20,6 @@ router.get('/', function(res,req) {
                success: true
            });
    })
-=======
 
 var users_data = require('../models/users_data');
 
@@ -40,7 +38,6 @@ router.post('/external_transaction', function (req, res, next) {
     var remarks = req.body.remarks;
     var status = "Pending";
     users_transactions.insertOne(user_id, sender_acc, receiver_acc, amount, remarks, status);
->>>>>>> 7a8c5f501cf61dc3a474939f5ca5424950759e3d
 });
 
 // router.post('/external_transaction', function (req, res, next) {
@@ -57,5 +54,7 @@ router.post('/external_transaction', function (req, res, next) {
 //     var status = "Pending";
 //     users_transactions.insertOne(user_id, sender_acc, receiver_acc, amount, remarks, status);
 // });
+
+// some changes
 
 module.exports = router;

@@ -7,7 +7,6 @@ var users_transactions = require('../models/users_transaction');
 router.post('/external_transaction', function (req, res, next) {
     var user_id = req.body.user_id;
 
-<<<<<<< HEAD
     // TODO: create a new table for transactions
 
     // TODO: query for the transactions, and pass user_id to this page
@@ -22,7 +21,6 @@ router.post('/external_transaction', function (req, res, next) {
 });
 
 module.exports = router;
-=======
 // output: status, entry in corresponding table
 
 var express = require('express');
@@ -58,4 +56,4 @@ router.post('/', function (req, res, next) {
 
 
 module.exports = router;
->>>>>>> 7a8c5f501cf61dc3a474939f5ca5424950759e3d
+
