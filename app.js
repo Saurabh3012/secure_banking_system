@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bankRouter = require('./routes/banking');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -42,8 +43,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/banking', bankRouter);
 
 
 // passport config

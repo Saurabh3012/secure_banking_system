@@ -3,6 +3,7 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <h1><%= title %></h1>
@@ -10,6 +11,7 @@
     <form action="/login" method="post">
         <input type="text" placeholder="Username" name="username"  required />
         <input type="password" placeholder="Password" name="password"  required />
+        <div class="g-recaptcha" data-sitekey="6LehzHIUAAAAAGgJLF3K8ggErBnuxZUOb3R7CHm8"></div>
         <input type="submit" value="Login" />
     </form>
 </p>
