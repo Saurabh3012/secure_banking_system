@@ -4,12 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var bodyParser = require("body-parser");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var dashboard = require('./routes/user_dash_board');
 
 var app = express();
 var mongoose = require('mongoose');
+
+var config = require("./config/config.json");
+
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,22 +27,41 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login', dashboard);
+
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://'+config.mongodb.user+':'+config.mongodb.pass+'@'+config.mongodb.host+':'+config.mongodb.port+'/fcs', { "useNewUrlParser": true }, function (err, result) {
+    if(err) throw err;
+    console.log("Connection Successful!");
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
-
-
-// mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/personell_details_db', { "useNewUrlParser": true }, function (err, result) {
-    if(err) throw err;
-    console.log("Connection Successful!");
 });
 
 

@@ -1,59 +1,42 @@
 var express = require('express');
 var router = express.Router();
 
+var passport = require('passport');
+var Account = require('../models/account');
 
-var users_data = require('../models/users_data');
+router.get("/", function (req, res) {
+    res.render('index', { user : req.user, title: "Dashboard" });
+});
 
+router.get("/login", function (req, res) {
 
+    res.render("login", {
+        title: "Login"
+    });
 
-// login takes user id and password.
-router.post('/', function (req, res, next) {
-    var user_name = req.body.user_name;
-    var password = req.body.password;
-
-    users_data.findOne({'user_id': user_name}).then(function (doc) {
-        // comapre the password.
-
-        if(doc.password == password){
-            console.log(doc);
-            res.send("successful");
-        }
-        else {
-            console.log(doc);
-            res.send("Authentication failure " + doc.password + " " + doc.user_id);
-        }
-        // if ok, then redirect to account summary.
-
-        // res.send(doc);
-    }).catch(function (e) {
-        console.error(e);
-    })
 });
 
 
+router.post("/login", passport.authenticate('local'), function (req, res) {
 
+    // var email = req.form.email;
+    // var pass = req.form.pass;
 
-router.post('/login', function (req, res, next) {
-    var user_name = req.body.user_id;
-    var pwd = req.body.password;
+    console.dir(req.body);
+    res.redirect("/");
 
-    // compare the password.
-    users_data.find({'user_id': user_name, 'password': pwd}, function(err, user){
-        if(err)
-        {
-            console.log(err);
-            return res.status(500).send();
-        }
-        if(!user)
-        {
-            console.log("Invalid Username or Password");
-            return console.status(404).send();
-        }
-        // if ok, then redirect to account summary.
-        return res.redirect('/user_dash_board', user_name);
-    }).catch(function (e) {
-        console.error(e);
-    })
+});
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+router.get("/data", function (req, res) {
+
+    console.log(req.user);
+    res.send(req.user);
+
 });
 
 module.exports = router;
