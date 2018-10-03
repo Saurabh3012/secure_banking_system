@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<h1><%= title %></h1>
+<p>
+<form action="/make_transaction/do_transfer" method="post">
+    <input type="text" placeholder="To Account" name="toAccount"  required />
+    <input type="text" placeholder="amount" name="amount"  required />
+    <input type="submit" value="Commit Transaction" />
+</form>
+<a href="/banking">Back to Account Summary</a><br/>
+<a href="/logout">Logout</a>
+</p>
+</body>
+</html>

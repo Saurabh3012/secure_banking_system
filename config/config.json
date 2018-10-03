@@ -1,0 +1,12 @@
+{
+  "mongodb": {
+    "host": "192.168.2.244",
+    "user": "myMongo",
+    "pass": "Mgmgmg2018",
+    "port": 64646
+  },
+  "google_captcha": {
+    "siteKey": "6LehzHIUAAAAAGgJLF3K8ggErBnuxZUOb3R7CHm8",
+    "secretKey": "6LehzHIUAAAAAJ5T9cB1xObAsD-G-2TF_FpunCTc"
+  }
+}

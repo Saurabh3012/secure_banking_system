@@ -23,6 +23,18 @@ router.use(authenticate);
 
 router.get("/", function (req, res) {
 
+    if (req.user){
+        if (req.user.role == 1) {
+            res.render("account_summary", {
+                title:"Account Summary"
+            })
+        }
+        else {
+            res.render("make_transaction", {
+                title: "Make a transaction"
+            })
+        }
+    }
 
     res.render("bank", {
         title: "Banking"
@@ -38,5 +50,10 @@ router.post("/", function (req, res) {
 
 });
 
+
+router.post("/do_transaction", function (req, res) {
+    res.redirect("/make_transaction");
+    console.log(req.toAccount + req.amount);
+});
 
 module.exports = router;

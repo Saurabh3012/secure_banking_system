@@ -9,6 +9,8 @@ var bodyParser = require("body-parser");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bankRouter = require('./routes/banking');
+var transactRouter = require('./routes/make_transaction');
+var transList = require('./routes/get_trans_list');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -47,7 +49,8 @@ app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/banking', bankRouter);
-
+app.use('/make_transaction', transactRouter);
+app.use('/get_trans_list', transList);
 
 // passport config
 var Account = require('./models/account');

@@ -11,14 +11,14 @@ var recaptcha = new Recaptcha(config.google_captcha.siteKey, config.google_captc
 
 
 router.get("/", function (req, res) {
-    res.render('index', { user : req.user, title: "Dashboard" });
+    res.render('index', {user: req.user, title: "Dashboard"});
 });
 
 router.get("/login", recaptcha.middleware.render, function (req, res) {
 
     res.render("login", {
         title: "Login",
-        captcha:res.recaptcha
+        captcha: res.recaptcha
     });
 
 });
@@ -28,17 +28,17 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
 
     // var email = req.form.email;
     // var pass = req.form.pass;
-    if (!req.recaptcha.error){
+    if (!req.recaptcha.error) {
         // console.dir(req.body);
-        res.redirect("/");
-    }else{
+        res.redirect("/banking");
+    } else {
         res.send("Captcha Error");
     }
 
 
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
@@ -64,10 +64,10 @@ router.get("/data", function (req, res) {
 //     });
 // });
 
-router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+router.post('/register', function (req, res) {
+    Account.register(new Account({username: req.body.username}), req.body.password, function (err, account) {
         if (err) {
-            return res.render('register', { account : account });
+            return res.render('register', {account: account});
         }
 
         passport.authenticate('local')(req, res, function () {
