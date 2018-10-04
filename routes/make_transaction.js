@@ -28,21 +28,23 @@ router.get("/", function (req, res) {
 
 router.post("/do_transfer", function (req, res) {
     console.log(req.body.toAccount, req.body.amount);
-    Transaction.register(new Transaction({
-        from: req.user,
-        to: req.body.toAccount,
-        amount: req.body.amount,
-        status: -1,
-        timestamp: Date()
-    }), function (err, success) {
+    Transaction.findOneAndUpdate({
+            from: req.user,
+            to: req.body.toAccount,
+            amount: req.body.amount,
+            status: -1,
+            timestamp: Date()
+    }, {
+        upsert: true
+    }, function (err, success) {
         if (err) {
             console.log("Error occured");
         }
         else {
-
+            console.log(success);
+            res.render("make_transaction", {title: "Succesful transaction. Make another one ??? "});
         }
-    });
-    res.render("make_transaction", {title: "Succesful transaction. Make another one ??? "});
+    })
 });
 
 module.exports = router;
