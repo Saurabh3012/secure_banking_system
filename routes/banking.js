@@ -30,6 +30,7 @@ router.get("/", function (req, res) {
             })
         }
         else {
+            // TODO: merchant payee (user role 4)
             res.render("make_transaction", {
                 title: "Make a transaction"
             })
