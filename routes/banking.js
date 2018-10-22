@@ -29,6 +29,11 @@ router.get("/", function (req, res) {
                 title:"Account Summary"
             })
         }
+        if (req.user.role == 2) {
+            res.render("account_summary_2", {
+                title:"Account Summary"
+            })
+        }
         else {
             // TODO: merchant payee (user role 4)
             res.render("make_transaction", {
