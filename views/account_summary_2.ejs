@@ -45,6 +45,7 @@
         
         <% if (allTransaction){
         allTransaction.forEach(function (item) {
+            if (item.status==-1) {
         %>
         <tr>
         	<td><%= item.from %></td>
@@ -57,7 +58,7 @@
     	    <td><input type="submit" value="Reject" ></td>
 
         </tr>
-        <% }) }%>
+        <% }}) }%>
     </table>
     
 <a href="/make_transaction"></a><br/>

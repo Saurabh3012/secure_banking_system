@@ -41,7 +41,7 @@ router.get("/", function (req, res) {
                 }
                 else if (req.user.role == 2) {
 
-                    Trans.find({status: -1}, function(transactionError, allTransaction) {
+                    Trans.find( function(transactionError, allTransaction) {
 
                         res.render("account_summary_2", {
                             title:"Regular Employee Dashboard",
