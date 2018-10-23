@@ -15,7 +15,33 @@
 </form>
 
 <a href="/logout">Logout</a><br/>
-<a href="/make_transaction">Make a transaction</a><br/>
+<table>
+		<th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Datetime</th>
+        <th>Accept</th>
+        <th>Reject</th>
+        <% if (trans){
+        trans.forEach(function (item) {
+        	if(item.status==-1) {
+        %>
+        <tr>
+        	<td><%= item.from %></td>
+            <td><%= item.to %></td>
+            <td><%= item.amount %></td>
+            <td><%= item.status %></td>
+            <td><%= item.timestamp %></td>
+
+	        <td><input type="submit" value="Accept" /></td>
+    	    <td><input type="submit" value="Reject" ></td>
+
+        </tr>
+        <% }}) }%>
+    </table>
+    
+<a href="/make_transaction"></a><br/>
 <a href="/get_trans_list">Get Transactions in range</a>
 
 </body>

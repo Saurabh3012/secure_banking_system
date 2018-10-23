@@ -40,7 +40,8 @@ router.get("/", function (req, res) {
                 }
                 else if (req.user.role == 2) {
                     res.render("account_summary_2", {
-                        title:"Account Summary"
+                        title:"Account Summary",
+                        trans: trans
                     })
                 }
                 else {
