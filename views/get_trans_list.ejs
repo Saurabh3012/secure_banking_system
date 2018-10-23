@@ -6,7 +6,7 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-<h1><%= title %></h1>
+<h1>Transaction Search</h1>
 <p>
 
 <table>
@@ -27,11 +27,16 @@
     <% }) }%>
 </table>
 
+
+<h1><%= title %></h1>
+
+
 <form action="/get_trans_list/get_list" method="post">
     <input type="date" placeholder="From Date" name="from"  required />
     <input type="date" placeholder="To Date" name="to"  required />
     <input type="submit" value="Get Transactions" />
 </form>
+
 <a href="/banking">Back to Account Summary</a><br>
 <a href="/logout">Logout</a>
 </p>
