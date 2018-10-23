@@ -44,5 +44,19 @@ router.post("/", function (req, res) {
 
 });
 
+// router.put("/accept", function (req, res) ) {
+
+// }
+
+// router.put("/reject", function (req, res) ) {
+//     transaction.findByIdAndUpdate(
+//         req.params._id,
+//         {status:0},
+//         (err, todo) => {
+//             if (err) return res.status(500).send(err);
+//                 return res.send(transaction);
+//         }
+//     )
+// }
 
 module.exports = router;

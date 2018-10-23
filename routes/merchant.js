@@ -39,7 +39,7 @@ router.post("/do_transfer", function (req, res) {
             console.log("Error occured");
         }
         else {
-
+            
         }
     });
     res.render("make_transaction", {title: "Succesful transaction. Make another one ??? "});

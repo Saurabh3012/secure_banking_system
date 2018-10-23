@@ -34,13 +34,16 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
 
-	        <td><input type="submit" value="Accept" /></td>
-    	    <td><input type="submit" value="Reject" ></td>
-
+            <form action="/account_summmary_2/accept" method="put">
+				<td><input type="submit" value="Accept" /></td>
+    	    </form>
+    	    <form action="/account_summmary_2/reject" method="put">
+    	    	<td><input type="submit" value="Reject" ></td>
+    	    </form>	
         </tr>
         <% }}) }%>
     </table>
-    
+
 <a href="/make_transaction"></a><br/>
 <a href="/get_trans_list">Get Transactions in range</a>
 
