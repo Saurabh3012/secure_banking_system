@@ -40,10 +40,15 @@ router.get("/", function (req, res) {
                     })
                 }
                 else if (req.user.role == 2) {
-                    res.render("account_summary_2", {
-                        title:"Regular Employee Dashboard",
-                        trans: trans
-                    })
+
+                    Trans.find({status: -1}, function(transactionError, allTransaction) {
+
+                        res.render("account_summary_2", {
+                            title:"Regular Employee Dashboard",
+                            allTransaction: allTransaction
+                        })
+
+                    });
                 }
                 else if (req.user.role == 3) {
                     res.render("account_summary_3", {
