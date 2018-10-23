@@ -28,6 +28,9 @@ router.get("/", function (req, res) {
 
 router.post("/do_transfer", function (req, res) {
     console.log(req.body.toAccount, req.body.amount);
+
+    console.log("User balance: ", req.user.amount)
+
     if (req.body.amount > req.user.amount){
         res.render("make_transaction", {title: "Amount limit exceeded - Insufficient funds"});
     }
@@ -35,16 +38,15 @@ router.post("/do_transfer", function (req, res) {
         to :  req.body.toAccount,
         amount: req.body.amount,
          from: req.user.username,
+         balance: req.user.amount,
          status : '-1',
-         timestamp: Date(),
-         balance: req.user.amount
         };
 
     trans = new Transaction(obj);
 
     trans.save(function (err, success) {
         if (err) {
-            console.log("Error occured");
+            console.log("Error occurred");
             console.log(err);
         }
         else {

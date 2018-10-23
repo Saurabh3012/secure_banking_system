@@ -25,7 +25,7 @@ router.use(authenticate);
 router.get("/", function (req, res) {
     if (req.user){
 
-        Trans.find(function (err, trans) {
+        Trans.find({from: req.user.username}, function (err, trans) {
             if (err){
                 console.log(err);
                 res.send('soemthing werino wong')
@@ -33,6 +33,7 @@ router.get("/", function (req, res) {
             else {
 
                 if (req.user.role == 1) {
+
                     res.render("account_summary", {
                         title:"Account Summary",
                         trans: trans
@@ -40,7 +41,12 @@ router.get("/", function (req, res) {
                 }
                 else if (req.user.role == 2) {
                     res.render("account_summary_2", {
-                        title:"Account Summary"
+                        title:"Regular Employee Dashboard"
+                    })
+                }
+                else if (req.user.role == 3) {
+                    res.render("account_summamry_3", {
+                        title: "External User Dashboard."
                     })
                 }
                 else {

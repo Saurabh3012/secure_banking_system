@@ -59,7 +59,8 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
 
         res.redirect("/banking");
     } else {
-        res.send("Captcha Error");
+        res.redirect("/banking");
+        //res.send("Captcha Error");
     }
 
 
