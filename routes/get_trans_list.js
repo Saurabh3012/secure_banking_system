@@ -31,7 +31,12 @@ router.get("/", function(req, res){
 
 router.post("/get_list", function(req, res){
     console.log(req.body.from, req.body.to);
-    Trans.find({from: req.user.username}, function (err, trans) {
+    // var fromDate = new Date(req.body.from.toISOString());
+    // var toDate = new Date(req.body.to.toISOString());
+    Trans.find({from: req.user.username,
+        timestamp: {$gte: new Date(req.body.from),
+            $lt: new Date(req.body.to)}},
+        function (err, trans) {
         if (err) {
             console.log(err);
             res.send("sunthin wong");

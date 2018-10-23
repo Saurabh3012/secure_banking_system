@@ -8,28 +8,28 @@
 <h1><%= title %></h1>
 
 
-    <a href="/logout">Logout</a><br/>
+<a href="/logout">Logout</a><br/>
 
-    <table>
-        <th>To</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Datetime</th>
+<table>
+    <th>To</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Datetime</th>
 
-        <% if (trans){
-        trans.forEach(function (item) {
-        %>
+    <% if (trans){
+    trans.forEach(function (item) {
+    %>
         <tr>
             <td><%= item.to %></td>
             <td><%= item.amount %></td>
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
         </tr>
-        <% }) }%>
-    </table>
+    <% }) }%>
+</table>
 
-    <a href="/make_transaction">Make a transaction</a><br/>
-    <a href="/get_trans_list">Get Transactions in range</a>
+<a href="/make_transaction">Make a transaction</a><br/>
+<a href="/get_trans_list">Get Transactions in range</a>
 
 </body>
 </html>
