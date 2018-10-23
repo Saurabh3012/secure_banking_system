@@ -12,6 +12,28 @@
 </form>
 
 <a href="/logout">Logout</a><br/>
+
+<table>
+    <th>To</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Datetime</th>
+
+    <% if (allTransaction){
+    allTransaction.forEach(function (item) {
+        if(item.from==userName) {
+    %>
+        <tr>
+            <td><%= item.to %></td>
+            <td><%= item.amount %></td>
+            <td><%= item.status %></td>
+            <td><%= item.timestamp %></td>
+        </tr>
+    <% }}) }%>
+</table>
+<br>
+<br>
+<br>
 <table>
 		<th>From</th>
         <th>To</th>

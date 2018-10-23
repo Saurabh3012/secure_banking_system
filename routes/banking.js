@@ -45,7 +45,8 @@ router.get("/", function (req, res) {
 
                         res.render("account_summary_2", {
                             title:"Regular Employee Dashboard",
-                            allTransaction: allTransaction
+                            allTransaction: allTransaction,
+                            userName: req.user.username
                         })
 
                     });
