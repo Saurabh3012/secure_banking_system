@@ -1,0 +1,12 @@
+{
+  "mongodb": {
+    "host": "xxxxxxx",
+    "user": "xxxxx",
+    "pass": "xxxxx",
+    "port": "000"
+  },
+  "google_captcha": {
+    "siteKey": "xxxxxx",
+    "secretKey": "6LehzHIUAAAAAJ5T9cB1xObAsD-G-2TF_FpunCTc"
+  }
+}

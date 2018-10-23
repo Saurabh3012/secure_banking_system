@@ -47,6 +47,7 @@ app.use(bodyParser.json());
 
 
 
+// TODO: add your routes here
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/banking', bankRouter);
