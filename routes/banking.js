@@ -28,7 +28,7 @@ router.get("/", function (req, res) {
         Trans.find({from: req.user.username}, function (err, trans) {
             if (err){
                 console.log(err);
-                res.send('soemthing werino wong')
+                res.send('something went wrong')
             }
             else {
 
@@ -39,24 +39,31 @@ router.get("/", function (req, res) {
                         trans: trans
                     })
                 }
-                else if (req.user.role == 2) {
+                else if (req.user.role == 2 || req.user.role == 3) {
 
                     Trans.find( function(transactionError, allTransaction) {
 
                         res.render("account_summary_2", {
                             title:"Regular Employee Dashboard",
                             allTransaction: allTransaction,
-                            userName: req.user.username
+                            userName: req.user.username,
+                            userRole: req.user.role
                         })
 
                     });
                 }
-                else if (req.user.role == 3) {
-                    res.render("account_summary_3", {
-                        title: "External User Dashboard.",
-                        trans: trans
-                    })
-                }
+                // else if (req.user.role == 3) {
+                //
+                //     Trans.find( function(transactionErrors, allTransactions) {
+                //
+                //         res.render("account_summary_3", {
+                //             title:"External User Dashboard.",
+                //             allTransactions: allTransactions,
+                //             userName: req.user.username
+                //         })
+                //
+                //     });
+                // }
                 else if (req.user.role == 4) {
                     res.render("account_summary_4", {
                         title: "External User Dashboard.",
