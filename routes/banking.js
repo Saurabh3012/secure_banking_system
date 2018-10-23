@@ -3,6 +3,7 @@ var router = express.Router();
 
 
 var Bank = require("../models/bank");
+var Trans = require('../models/transaction')
 
 
 var authenticate = function(req, res, next){
@@ -22,24 +23,36 @@ router.use(authenticate);
 
 
 router.get("/", function (req, res) {
-
     if (req.user){
-        if (req.user.role == 1) {
-            res.render("account_summary", {
-                title:"Account Summary"
-            })
-        }
-        if (req.user.role == 2) {
-            res.render("account_summary_2", {
-                title:"Account Summary"
-            })
-        }
-        else {
-            // TODO: merchant payee (user role 4)
-            res.render("make_transaction", {
-                title: "Make a transaction"
-            })
-        }
+
+        Trans.find(function (err, trans) {
+            if (err){
+                console.log(err);
+                res.send('soemthing werino wong')
+            }
+            else {
+
+                if (req.user.role == 1) {
+                    res.render("account_summary", {
+                        title:"Account Summary",
+                        trans: trans
+                    })
+                }
+                else if (req.user.role == 2) {
+                    res.render("account_summary_2", {
+                        title:"Account Summary"
+                    })
+                }
+                else {
+                    // TODO: merchant payee (user role 4)
+                    res.render("make_transaction", {
+                        title: "Make a transaction"
+                    })
+                }
+            }
+        });
+
+
     }
 
 });

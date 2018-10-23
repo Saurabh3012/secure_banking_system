@@ -6,7 +6,8 @@ var Transaction = new Schema({
     to: String,
     amount:  Number,
     status: Number,
-    timestamp: Date,
+    timestamp: String,
+    balance: String
 });
 
 

@@ -9,7 +9,13 @@
 <h1><%= title %></h1>
 <p>
 <form action="/make_transaction/do_transfer" method="post">
-    <input type="number" placeholder="To Account" name="toAccount"  required />
+    <select name="toAccount">
+        <option value="avinash_2">Own Account</option>
+        <option value="dwarka">Dwarka - Internal User</option>
+        <option value="saurabh">Saurabh - External User</option>
+        <option value="ronak">Ronak - External User</option>
+    </select>
+    <!--<input type="number" placeholder="To Account" name="toAccount"  required />-->
     <input type="number" placeholder="amount" name="amount"  required />
     <input type="submit" value="Commit Transaction" />
 </form>
