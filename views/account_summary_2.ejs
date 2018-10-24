@@ -35,7 +35,6 @@
 <br>
 <br>
 <table>
-        <th>ID</th>
 		<th>From</th>
         <th>To</th>
         <th>Amount</th>
@@ -47,16 +46,19 @@
             if (item.status==-1) {
         %>
         <tr>
-            <td><%= item._id%></td>
         	<td><%= item.from %></td>
             <td><%= item.to %></td>
             <td><%= item.amount %></td>
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
 
-            <form  action="/banking/reject_transaction" method="post">
+            <form  action="/banking/accept_transaction" method="post">
                 <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
                 <td><input type="submit" value="Accept" /></td>
+            </form>
+
+            <form  action="/banking/reject_transaction" method="post">
+                <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
                 <td><input type="submit" value="Reject" ></td>
             </form>
 

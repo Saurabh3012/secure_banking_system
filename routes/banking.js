@@ -108,7 +108,6 @@ router.post("/reject_transaction", function (req, res) {
             if (err)
                 return res.status(500).send(err);
             else{
-                // res.send(transaction);
                 Trans.find( function(transactionError, allTransaction) {
 
                     res.render("account_summary_2", {
@@ -124,5 +123,7 @@ router.post("/reject_transaction", function (req, res) {
     );
 
 });
+
+// TODO: Accept transaction
 
 module.exports = router;
