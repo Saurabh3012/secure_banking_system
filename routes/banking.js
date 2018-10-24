@@ -102,24 +102,27 @@ router.post("/do_transaction", function (req, res) {
 router.post("/reject_transaction", function (req, res) {
 
     Trans.findByIdAndUpdate(
-        req.params.transactionId,
-        req.body,
-        {status: 0},
-        (err, transaction) => {
-            if (err) return res.status(500).send(err);
-            return res.send(transaction);
+        req.body.transactionID,
+        {status: 1},
+        function (err, transaction) {
+            if (err)
+                return res.status(500).send(err);
+            else{
+                // res.send(transaction);
+                Trans.find( function(transactionError, allTransaction) {
+
+                    res.render("account_summary_2", {
+                        title:"Regular Employee Dashboard",
+                        allTransaction: allTransaction,
+                        userName: req.user.username,
+                        userRole: req.user.role
+                    })
+
+                });
+            }
         }
-    )
-    Trans.find( function(transactionError, allTransaction) {
+    );
 
-        res.render("account_summary_2", {
-            title:"Regular Employee Dashboard",
-            allTransaction: allTransaction,
-            userName: req.user.username,
-            userRole: req.user.role
-        })
-
-    });
 });
 
 module.exports = router;
