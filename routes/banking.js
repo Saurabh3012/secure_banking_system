@@ -99,17 +99,27 @@ router.post("/do_transaction", function (req, res) {
     console.log(req.toAccount + req.amount);
 });
 
-router.put("/reject_transaction", function (req, res) {
+router.post("/reject_transaction", function (req, res) {
 
     Trans.findByIdAndUpdate(
         req.params.transactionId,
         req.body,
-        {status: -1},
+        {status: 0},
         (err, transaction) => {
             if (err) return res.status(500).send(err);
             return res.send(transaction);
         }
     )
+    Trans.find( function(transactionError, allTransaction) {
+
+        res.render("account_summary_2", {
+            title:"Regular Employee Dashboard",
+            allTransaction: allTransaction,
+            userName: req.user.username,
+            userRole: req.user.role
+        })
+
+    });
 });
 
 module.exports = router;

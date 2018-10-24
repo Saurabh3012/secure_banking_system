@@ -55,12 +55,13 @@
             <td><%= item.timestamp %></td>
 
 	        <td><input type="submit" value="Accept" /></td>
-            <form  action="/banking/reject_transaction" method="put">
+            <form  action="/banking/reject_transaction" method="post">
                 <td><input type="submit" value="Reject" ></td>
             </form>
 
         </tr>
-        <% }}) }%>
+        <% }%>
+        <%}) }%>
 </table>
 
 <% if (userRole==3) {%>
