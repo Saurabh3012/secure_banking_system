@@ -99,4 +99,17 @@ router.post("/do_transaction", function (req, res) {
     console.log(req.toAccount + req.amount);
 });
 
+router.put("/reject_transaction", function (req, res) {
+
+    Trans.findByIdAndUpdate(
+        req.params.transactionId,
+        req.body,
+        {status: -1},
+        (err, transaction) => {
+            if (err) return res.status(500).send(err);
+            return res.send(transaction);
+        }
+    )
+});
+
 module.exports = router;

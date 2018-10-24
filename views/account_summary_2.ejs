@@ -55,7 +55,9 @@
             <td><%= item.timestamp %></td>
 
 	        <td><input type="submit" value="Accept" /></td>
-    	    <td><input type="submit" value="Reject" ></td>
+            <form  action="/banking/reject_transaction" method="put">
+                <td><input type="submit" value="Reject" ></td>
+            </form>
 
         </tr>
         <% }}) }%>
