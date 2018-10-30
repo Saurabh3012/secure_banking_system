@@ -126,23 +126,27 @@ router.post("/reject_transaction", function (req, res) {
 
 router.post("/accept_transaction", function (req, res) {
 
+    Trans.findOne(
+        {_id: req.body.transactionID},
+        function (err, executeTransaction) {
+            if (err)
+                return res.status(500).send(err);
+            else {
+                // To access transaction data:
+                // executeTransaction.to
+                Trans.find( function(transactionError, allTransaction) {
+                    res.render("account_summary_2", {
+                        title: "Regular Employee Dashboard",
+                        allTransaction: allTransaction,
+                        userName: req.user.username,
+                        userRole: req.user.role
+                    })
+                });
 
-    // Trans.find({from: req.user.username}, function (err, trans) {
-    //
-    //
-    // });
+            }
+        }
+    );
 
-
-    Trans.find( function(transactionError, allTransaction) {
-
-        res.render("account_summary_2", {
-            title:"Regular Employee Dashboard",
-            allTransaction: allTransaction,
-            userName: req.user.username,
-            userRole: req.user.role
-        })
-
-    });
 });
 
 module.exports = router;
