@@ -9,6 +9,8 @@ const config = require("../config/config.json");
 var Recaptcha = require('express-recaptcha').Recaptcha;
 var recaptcha = new Recaptcha(config.google_captcha.siteKey, config.google_captcha.secretKey);
 
+var otpGenerator = require('otp-generator')
+var otp = ""
 
 router.get("/", function (req, res) {
     res.render('index', {user: req.user, title: "Dashboard"});
@@ -16,9 +18,11 @@ router.get("/", function (req, res) {
 
 router.get("/login", recaptcha.middleware.render, function (req, res) {
 
+    var otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
     res.render("login", {
         title: "Login",
-        captcha: res.recaptcha
+        captcha: res.recaptcha,
+        otp: otp
     });
 
 });
@@ -28,39 +32,47 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
 
     // var email = req.form.email;
     // var pass = req.form.pass;
-    if (!req.recaptcha.error) {
-        // console.dir(req.body);
-        if(req.username == 'avinash'){
-            // redirect to the approprite screen
-            // this is a regular employee
-        }
 
-        if(req.username == 'dwaraka'){
-            // redirect to the approprite screen
-            // this is a system manager
-        }
+    console.log("otp in login", req.body.otp)
+    console.log(req.body.otp1)
 
-        if(req.username == 'saurabh'){
-            // redirect to the approprite screen
-            // this is system administrator
-        }
+    if(req.body.otp == req.body.otp1){
+        if (!req.recaptcha.error) {
+            // console.dir(req.body);
+            if(req.username == 'avinash'){
+                // redirect to the approprite screen
+                // this is a regular employee
+            }
 
-        if(req.username == 'ronak'){
-            // redirect to the approprite screen
-            // this is individual user
+            if(req.username == 'dwaraka'){
+                // redirect to the approprite screen
+                // this is a system manager
+            }
+
+            if(req.username == 'saurabh'){
+                // redirect to the approprite screen
+                // this is system administrator
+            }
+
+            if(req.username == 'ronak'){
+                // redirect to the approprite screen
+                // this is individual user
+
+                res.redirect("/banking");
+            }
+
+            if(req.username == 'rohit'){
+                // redirect to the approprite screen
+                // this is merchant or organization.
+            }
 
             res.redirect("/banking");
+        } else {
+            res.redirect("/banking");
+            //res.send("Captcha Error");
         }
-
-        if(req.username == 'rohit'){
-            // redirect to the approprite screen
-            // this is merchant or organization.
-        }
-
-        res.redirect("/banking");
-    } else {
-        res.redirect("/banking");
-        //res.send("Captcha Error");
+    }else {
+        res.send("OTP mismatch")
     }
 
 
@@ -76,6 +88,14 @@ router.get("/data", function (req, res) {
     console.log(req.user);
     res.send(req.user);
 
+});
+
+router.post("/otp", function (req, res) {
+
+    console.log("otp: ", req.body.otp)
+    res.json({
+       otp: req.body.otp
+    })
 });
 
 // router.get('/register', function(req, res) {

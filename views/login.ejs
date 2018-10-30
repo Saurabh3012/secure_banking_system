@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body>
 <h1><%= title %></h1>
@@ -12,8 +13,20 @@
         <input type="text" placeholder="Username" name="username"  required />
         <input type="password" placeholder="Password" name="password"  required />
         <div class="g-recaptcha" data-sitekey="6LehzHIUAAAAAGgJLF3K8ggErBnuxZUOb3R7CHm8"></div>
-        <input type="submit" value="Login" />
+        <input type="hidden" value="<%= otp %>" name="otp">
+
+        <input type="text" id="otp" placeholder="OTP" name="otp1"  required />
+
+    <input type="submit" value="Login" />
     </form>
+
+    <a target="_blank">Click here to get your OTP
+    <form action="/otp" method="post" target="_blank">
+        <input type="hidden" value="<%= otp %>" name="otp">
+        <input type="submit">
+    </form>
+    </a>
+
 </p>
 </body>
 </html>
