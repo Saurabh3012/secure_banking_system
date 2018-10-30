@@ -103,7 +103,7 @@ router.post("/reject_transaction", function (req, res) {
 
     Trans.findByIdAndUpdate(
         req.body.transactionID,
-        {status: 1},
+        {status: 0  },
         function (err, transaction) {
             if (err)
                 return res.status(500).send(err);
