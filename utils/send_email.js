@@ -1,21 +1,24 @@
-var fs = require('fs');
+var nodemailer = require('nodemailer');
 
-var config = require('../config/config');
-
-var sendmail = require('sendmail')({
-    silent: true,
-    dkim: {
-        privateKey: fs.readFileSync('config/key.pem', 'utf8'),
-        keySelector: config.private_key.keyname
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'youremail@gmail.com',
+        pass: 'yourpassword'
     }
 });
 
-sendmail({
-    from: 'otp@yourdomain.com',
-    to: 'saurabhg@iiitd.ac.in',
-    subject: 'MailComposer sendmail',
-    html: 'Mail of test sendmail '
-}, function (err, reply) {
-    console.log(err && err.stack)
-    console.dir(reply)
-})
+var mailOptions = {
+    from: 'youremail@gmail.com',
+    to: 'myfriend@yahoo.com',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response);
+    }
+});
