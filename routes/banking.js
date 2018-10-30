@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 
+var Accounts = require("../models/account");
 var Bank = require("../models/bank");
-var Trans = require('../models/transaction')
+var Trans = require('../models/transaction');
 
 
 var authenticate = function(req, res, next){
@@ -111,7 +112,7 @@ router.post("/reject_transaction", function (req, res) {
                 Trans.find( function(transactionError, allTransaction) {
 
                     res.render("account_summary_2", {
-                        title:"Regular Employee Dashboard",
+                        title: "Regular Employee Dashboard",
                         allTransaction: allTransaction,
                         userName: req.user.username,
                         userRole: req.user.role
@@ -126,23 +127,89 @@ router.post("/reject_transaction", function (req, res) {
 
 router.post("/accept_transaction", function (req, res) {
 
+
+    // console.log("This is how to print on console.");
+
     Trans.findOne(
         {_id: req.body.transactionID},
         function (err, executeTransaction) {
             if (err)
                 return res.status(500).send(err);
             else {
-                // To access transaction data:
-                // executeTransaction.to
-                Trans.find( function(transactionError, allTransaction) {
-                    res.render("account_summary_2", {
-                        title: "Regular Employee Dashboard",
-                        allTransaction: allTransaction,
-                        userName: req.user.username,
-                        userRole: req.user.role
-                    })
-                });
 
+                // To access transaction data:
+                // executeTransaction.from
+
+                Accounts.findOne(
+                    {username: executeTransaction.from},
+                    function (userError, userAccount) {
+                        if(userError)
+                            return res.status(500).send(userError);
+                        else{
+                            if(userAccount.amount>=executeTransaction.amount && executeTransaction.amount>0){
+
+                                Accounts.findOne(
+                                    {username: executeTransaction.from},
+                                    function (senderError, senderAccount) {
+                                        if(senderError)
+                                            return res.status(500).send(senderError);
+                                        else{
+                                            Accounts.findByIdAndUpdate(
+                                                senderAccount._id,
+                                                {amount: 6000},
+                                                function (updateBalanceError, updateBalance) {
+                                                    if(updateBalanceError)
+                                                        return res.status(500).send(updateBalanceError);
+                                                }
+                                            )
+                                        }
+                                    }
+                                );
+
+                                // Accounts.findOneAndUpdate(
+                                //     {username: executeTransaction.from},
+                                //     {amount: 6000}
+                                // );
+                                //
+                                //
+                                // Accounts.findOneAndUpdate(
+                                //     {username: executeTransaction.to},
+                                //     {amount: 6000}
+                                // );
+
+                                Trans.findByIdAndUpdate(
+                                    executeTransaction._id,
+                                    {status: -1}, //Change it back to 1 after balance change testing.
+                                    function (markCompleteError, testTransaction) {
+                                        if (markCompleteError)
+                                            return res.status(500).send(markCompleteError);
+                                    }
+                                );
+                                Accounts.find(
+                                    function (printError, accounts) {
+                                        if(printError)
+                                            return res.status(500).send(markCompleteError);
+                                        else
+                                            console.log(accounts);
+                                    }
+                                );
+                                // Accounts.findOne(
+                                //     {username: }
+                                // );
+                                // console.log(executeTransaction);
+
+                            }
+                            Trans.find( function(transactionError, allTransaction) {
+                                res.render("account_summary_2", {
+                                    title: "Regular Employee Dashboard",
+                                    allTransaction: allTransaction,
+                                    userName: req.user.username,
+                                    userRole: req.user.role
+                                })
+                            });
+                        }
+                    }
+                );
             }
         }
     );
