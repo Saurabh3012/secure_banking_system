@@ -194,7 +194,6 @@ router.post("/accept_transaction", function (req, res) {
                                     }
                                 );
 
-
                             }
                             Trans.find( function(transactionError, allTransaction) {
                                 res.render("account_summary_2", {
