@@ -37,7 +37,8 @@ router.get("/", function (req, res) {
 
                     res.render("account_summary", {
                         title:"Account Summary",
-                        trans: trans
+                        trans: trans,
+                        bal : req.user.amount
                     })
                 }
                 else if (req.user.role == 2 || req.user.role == 3) {

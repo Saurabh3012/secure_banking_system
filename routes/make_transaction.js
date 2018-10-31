@@ -61,4 +61,10 @@ router.post("/do_transfer", function (req, res) {
     })
 });
 
+router.get("/user_details", function (req, res) {
+    res.render("user_details", {title: "User Details"});
+
+});
+
+
 module.exports = router;

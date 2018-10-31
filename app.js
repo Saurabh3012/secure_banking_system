@@ -12,6 +12,7 @@ var bankRouter = require('./routes/banking');
 var transactRouter = require('./routes/make_transaction');
 var transList = require('./routes/get_trans_list');
 var accountSummary2 = require('./routes/account_summary_2');
+var userDetails = require('./routes/user_details');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -54,6 +55,7 @@ app.use('/banking', bankRouter);
 app.use('/make_transaction', transactRouter);
 app.use('/get_trans_list', transList);
 app.use('/account_summmary_2', accountSummary2);
+app.use('/user_details', userDetails);
 
 // passport config
 var Account = require('./models/account');
