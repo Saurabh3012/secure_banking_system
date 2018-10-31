@@ -154,9 +154,10 @@ router.post("/accept_transaction", function (req, res) {
                                         if(senderError)
                                             return res.status(500).send(senderError);
                                         else{
+                                            var senderBalance=executeTransaction.amount*-1;
                                             Accounts.findByIdAndUpdate(
                                                 senderAccount._id,
-                                                {amount: 6000},
+                                                { $inc: {amount: senderBalance}},
                                                 function (updateBalanceError, updateBalance) {
                                                     if(updateBalanceError)
                                                         return res.status(500).send(updateBalanceError);
@@ -166,37 +167,33 @@ router.post("/accept_transaction", function (req, res) {
                                     }
                                 );
 
-                                // Accounts.findOneAndUpdate(
-                                //     {username: executeTransaction.from},
-                                //     {amount: 6000}
-                                // );
-                                //
-                                //
-                                // Accounts.findOneAndUpdate(
-                                //     {username: executeTransaction.to},
-                                //     {amount: 6000}
-                                // );
+                                Accounts.findOne(
+                                    {username: executeTransaction.to},
+                                    function (receiverError, receiverAccount) {
+                                        if(receiverError)
+                                            return res.status(500).send(receiverError);
+                                        else{
+                                            Accounts.findByIdAndUpdate(
+                                                receiverAccount._id,
+                                                { $inc: {amount: executeTransaction.amount}},
+                                                function (updateBalanceError, updateBalance) {
+                                                    if(updateBalanceError)
+                                                        return res.status(500).send(updateBalanceError);
+                                                }
+                                            )
+                                        }
+                                    }
+                                );
 
                                 Trans.findByIdAndUpdate(
                                     executeTransaction._id,
-                                    {status: -1}, //Change it back to 1 after balance change testing.
+                                    {status: 1},
                                     function (markCompleteError, testTransaction) {
                                         if (markCompleteError)
                                             return res.status(500).send(markCompleteError);
                                     }
                                 );
-                                Accounts.find(
-                                    function (printError, accounts) {
-                                        if(printError)
-                                            return res.status(500).send(markCompleteError);
-                                        else
-                                            console.log(accounts);
-                                    }
-                                );
-                                // Accounts.findOne(
-                                //     {username: }
-                                // );
-                                // console.log(executeTransaction);
+
 
                             }
                             Trans.find( function(transactionError, allTransaction) {
