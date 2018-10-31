@@ -32,7 +32,6 @@ router.get("/", function (req, res) {
                 res.send('something went wrong')
             }
             else {
-
                 if (req.user.role == 1) {
 
                     res.render("account_summary", {

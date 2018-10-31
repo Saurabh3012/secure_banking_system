@@ -20,7 +20,7 @@ router.get("/login", recaptcha.middleware.render, function (req, res) {
 
     var otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
     res.render("login", {
-        title: "Login",
+        title: "Login To Your Account",
         captcha: res.recaptcha,
         otp: otp
     });
@@ -92,7 +92,8 @@ router.get("/data", function (req, res) {
 
 router.post("/otp", function (req, res) {
 
-    console.log("otp: ", req.body.otp)
+    console.log("Your OTP is " + req.body.otp)
+    // console.log("otp: ", req.body.otp)
     res.json({
        otp: req.body.otp
     })
