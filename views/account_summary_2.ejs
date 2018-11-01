@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
 <h1><%= title %></h1>
@@ -21,7 +21,7 @@
 
     <% if (allTransaction){
     allTransaction.forEach(function (item) {
-        if(item.from==userName) {
+    if(item.from == userName) {
     %>
         <tr>
             <td><%= item.to %></td>
@@ -29,46 +29,46 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
         </tr>
-    <% }}) }%>
+    <% }}) } %>
 </table>
 <br>
 <br>
 <br>
 <table>
-		<th>From</th>
-        <th>To</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Datetime</th>
-        
-        <% if (allTransaction){
-        allTransaction.forEach(function (item) {
-            if (item.status==-1) {
-        %>
+    <th>From</th>
+    <th>To</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Datetime</th>
+
+    <% if (allTransaction){
+    allTransaction.forEach(function (item) {
+    if (item.status == -1) {
+    %>
         <tr>
-        	<td><%= item.from %></td>
+            <td><%= item.from %></td>
             <td><%= item.to %></td>
             <td><%= item.amount %></td>
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
 
-            <form  action="/banking/accept_transaction" method="post">
-                <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
-                <td><input type="submit" value="Accept" /></td>
+            <form action="/banking/accept_transaction" method="post">
+                <td><input type="hidden" value=<%= item._id %> name="transactionID"/></td>
+                <td><input type="submit" value="Accept"/></td>
             </form>
 
-            <form  action="/banking/reject_transaction" method="post">
-                <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
-                <td><input type="submit" value="Reject" ></td>
+            <form action="/banking/reject_transaction" method="post">
+                <td><input type="hidden" value=<%= item._id %> name="transactionID"/></td>
+                <td><input type="submit" value="Reject"></td>
             </form>
 
         </tr>
-        <%}}) }%>
+    <% }}) } %>
 </table>
 
-<% if (userRole==3) {%>
+<% if (userRole == 3) { %>
     <h1>Third row</h1>
-<%}%>
+<% } %>
 <a href="/make_transaction"></a><br/>
 <a href="/get_trans_list">Get Transactions in range</a>
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
 <h1><%= title %></h1>
@@ -18,7 +18,7 @@
 
     <% if (allTransactions){
     allTransactions.forEach(function (item) {
-    if(item.from==userName) {
+    if(item.from == userName) {
     %>
         <tr>
             <td><%= item.to %></td>
@@ -26,8 +26,8 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
         </tr>
-    <% }%>
-<%}) }%>
+    <% } %>
+    <% }) } %>
 </table>
 <br>
 <br>
@@ -43,7 +43,7 @@
 
     <% if (allTransaction){
     allTransaction.forEach(function (item) {
-    if (item.status==-1) {
+    if (item.status == -1) {
     %>
         <tr>
             <td><%= item.from %></td>
@@ -52,11 +52,11 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
 
-            <td><input type="submit" value="Accept" /></td>
-            <td><input type="submit" value="Reject" ></td>
+            <td><input type="submit" value="Accept"/></td>
+            <td><input type="submit" value="Reject"></td>
 
         </tr>
-    <% }}) }%>
+    <% }}) } %>
 </table>
 
 <a href="/make_transaction">Make a transaction</a><br/>

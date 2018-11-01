@@ -7,14 +7,14 @@ var Bank = require("../models/bank");
 var Trans = require('../models/transaction');
 
 
-var authenticate = function(req, res, next){
+var authenticate = function (req, res, next) {
 
-    if(req.user){
+    if (req.user) {
         next();
-    }else{
+    } else {
         res.render("login", {
             title: "Login",
-            captcha:res.recaptcha
+            captcha: res.recaptcha
         });
     }
 
@@ -24,10 +24,10 @@ router.use(authenticate);
 
 
 router.get("/", function (req, res) {
-    if (req.user){
+    if (req.user) {
 
         Trans.find({from: req.user.username}, function (err, trans) {
-            if (err){
+            if (err) {
                 console.log(err);
                 res.send('something went wrong')
             }
@@ -36,17 +36,17 @@ router.get("/", function (req, res) {
                 if (req.user.role == 1) {
 
                     res.render("account_summary", {
-                        title:"Account Summary",
+                        title: "Account Summary",
                         trans: trans,
-                        bal : req.user.amount
+                        bal: req.user.amount
                     })
                 }
                 else if (req.user.role == 2 || req.user.role == 3) {
 
-                    Trans.find( function(transactionError, allTransaction) {
+                    Trans.find(function (transactionError, allTransaction) {
 
                         res.render("account_summary_2", {
-                            title:"Regular Employee Dashboard",
+                            title: "Regular Employee Dashboard",
                             allTransaction: allTransaction,
                             userName: req.user.username,
                             userRole: req.user.role
@@ -109,8 +109,8 @@ router.post("/reject_transaction", function (req, res) {
         function (err, transaction) {
             if (err)
                 return res.status(500).send(err);
-            else{
-                Trans.find( function(transactionError, allTransaction) {
+            else {
+                Trans.find(function (transactionError, allTransaction) {
 
                     res.render("account_summary_2", {
                         title: "Regular Employee Dashboard",
@@ -144,23 +144,24 @@ router.post("/accept_transaction", function (req, res) {
                 Accounts.findOne(
                     {username: executeTransaction.from},
                     function (userError, userAccount) {
-                        if(userError)
+                        if (userError)
                             return res.status(500).send(userError);
-                        else{
-                            if(userAccount.amount>=executeTransaction.amount && executeTransaction.amount>0 && executeTransaction.status == -1){
+                        else {
+                            if (userAccount.amount >= executeTransaction.amount &&
+                                executeTransaction.amount > 0 && executeTransaction.status == -1) {
 
                                 Accounts.findOne(
                                     {username: executeTransaction.from},
                                     function (senderError, senderAccount) {
-                                        if(senderError)
+                                        if (senderError)
                                             return res.status(500).send(senderError);
-                                        else{
-                                            var senderBalance=executeTransaction.amount*-1;
+                                        else {
+                                            var senderBalance = executeTransaction.amount * -1;
                                             Accounts.findByIdAndUpdate(
                                                 senderAccount._id,
-                                                { $inc: {amount: senderBalance}},
+                                                {$inc: {amount: senderBalance}},
                                                 function (updateBalanceError, updateBalance) {
-                                                    if(updateBalanceError)
+                                                    if (updateBalanceError)
                                                         return res.status(500).send(updateBalanceError);
                                                 }
                                             )
@@ -171,14 +172,14 @@ router.post("/accept_transaction", function (req, res) {
                                 Accounts.findOne(
                                     {username: executeTransaction.to},
                                     function (receiverError, receiverAccount) {
-                                        if(receiverError)
+                                        if (receiverError)
                                             return res.status(500).send(receiverError);
-                                        else{
+                                        else {
                                             Accounts.findByIdAndUpdate(
                                                 receiverAccount._id,
-                                                { $inc: {amount: executeTransaction.amount}},
+                                                {$inc: {amount: executeTransaction.amount}},
                                                 function (updateBalanceError, updateBalance) {
-                                                    if(updateBalanceError)
+                                                    if (updateBalanceError)
                                                         return res.status(500).send(updateBalanceError);
                                                 }
                                             )
@@ -196,7 +197,7 @@ router.post("/accept_transaction", function (req, res) {
                                 );
 
                             }
-                            Trans.find( function(transactionError, allTransaction) {
+                            Trans.find(function (transactionError, allTransaction) {
                                 res.render("account_summary_2", {
                                     title: "Regular Employee Dashboard",
                                     allTransaction: allTransaction,

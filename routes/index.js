@@ -18,7 +18,7 @@ router.get("/", function (req, res) {
 
 router.get("/login", recaptcha.middleware.render, function (req, res) {
 
-    var otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+    var otp = otpGenerator.generate(6, {upperCase: false, specialChars: false});
     res.render("login", {
         title: "Login",
         captcha: res.recaptcha,
@@ -36,32 +36,32 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
     console.log("otp in login", req.body.otp)
     console.log(req.body.otp1)
 
-    if(req.body.otp == req.body.otp1){
+    if (req.body.otp == req.body.otp1) {
         if (!req.recaptcha.error) {
             // console.dir(req.body);
-            if(req.username == 'avinash'){
+            if (req.username == 'avinash') {
                 // redirect to the approprite screen
                 // this is a regular employee
             }
 
-            if(req.username == 'dwaraka'){
+            if (req.username == 'dwaraka') {
                 // redirect to the approprite screen
                 // this is a system manager
             }
 
-            if(req.username == 'saurabh'){
+            if (req.username == 'saurabh') {
                 // redirect to the approprite screen
                 // this is system administrator
             }
 
-            if(req.username == 'ronak'){
+            if (req.username == 'ronak') {
                 // redirect to the approprite screen
                 // this is individual user
 
                 res.redirect("/banking");
             }
 
-            if(req.username == 'rohit'){
+            if (req.username == 'rohit') {
                 // redirect to the approprite screen
                 // this is merchant or organization.
             }
@@ -71,7 +71,7 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
             res.redirect("/banking");
             //res.send("Captcha Error");
         }
-    }else {
+    } else {
         res.send("OTP mismatch")
     }
 
@@ -94,7 +94,7 @@ router.post("/otp", function (req, res) {
 
     console.log("otp: ", req.body.otp)
     res.json({
-       otp: req.body.otp
+        otp: req.body.otp
     })
 });
 
