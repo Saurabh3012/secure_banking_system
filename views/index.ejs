@@ -4,8 +4,16 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
-<body>
+<body oncontextmenu="return false">
 <h1><%= title %></h1>
+<script>
+ document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 ||     e.keyCode === 117 || e.keycode === 17 || e.keycode === 85)) {
+        alert('not allowed');
+    }
+    return false;
+};
+</script>
 <% if(!user){ %>
     <a href="/login">Login</a>
 <% } %>

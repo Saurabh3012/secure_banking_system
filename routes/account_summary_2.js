@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
 var Bank = require("../models/bank");
 var transaction = require('../models/transaction');
 
@@ -43,6 +42,5 @@ router.post("/", function (req, res) {
     res.send(req.user);
 
 });
-
 
 module.exports = router;

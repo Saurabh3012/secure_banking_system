@@ -7,7 +7,6 @@ var UserDetails = require('../models/bank');
 const config = require("../config/config.json");
 var Trans = require('../models/transaction');
 
-
 var authenticate = function (req, res, next) {
 
     if (req.user) {

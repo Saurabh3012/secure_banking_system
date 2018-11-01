@@ -38,34 +38,6 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
 
     if (req.body.otp == req.body.otp1) {
         if (!req.recaptcha.error) {
-            // console.dir(req.body);
-            if (req.username == 'avinash') {
-                // redirect to the approprite screen
-                // this is a regular employee
-            }
-
-            if (req.username == 'dwaraka') {
-                // redirect to the approprite screen
-                // this is a system manager
-            }
-
-            if (req.username == 'saurabh') {
-                // redirect to the approprite screen
-                // this is system administrator
-            }
-
-            if (req.username == 'ronak') {
-                // redirect to the approprite screen
-                // this is individual user
-
-                res.redirect("/banking");
-            }
-
-            if (req.username == 'rohit') {
-                // redirect to the approprite screen
-                // this is merchant or organization.
-            }
-
             res.redirect("/banking");
         } else {
             res.redirect("/banking");

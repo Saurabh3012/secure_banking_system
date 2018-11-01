@@ -5,10 +5,17 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
-<body>
+<body oncontextmenu="return false">
 <h1>Transaction Search</h1>
 <p>
-
+<script>
+ document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 ||     e.keyCode === 117 || e.keycode === 17 || e.keycode === 85)) {
+        alert('not allowed');
+    }
+    return false;
+};
+</script>
 <table>
     <th>To</th>
     <th>Amount</th>

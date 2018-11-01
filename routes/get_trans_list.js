@@ -49,7 +49,6 @@ router.post("/get_list", function (req, res) {
                 });
             }
         })
-
 });
 
 module.exports = router;

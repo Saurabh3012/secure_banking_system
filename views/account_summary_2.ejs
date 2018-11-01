@@ -4,9 +4,16 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-<body>
+<body oncontextmenu="return false">
 <h1><%= title %></h1>
-
+<script>
+ document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 ||     e.keyCode === 117 || e.keycode === 17 || e.keycode === 85)) {
+        alert('not allowed');
+    }
+    return false;
+};
+</script>
 <form action="/account_summmary_2" method="post">
 
 </form>
@@ -36,7 +43,7 @@
 <br>
 <br>
 <table>
-		<th>From</th>
+        <th>From</th>
         <th>To</th>
         <th>Amount</th>
         <th>Status</th>
@@ -50,7 +57,7 @@
         	<td><%= item.from %></td>
             <td><%= item.to %></td>
             <td><%= item.amount %></td>
-            <td><%= item.status %></td>
+            <td><%= item.status %></td> 
             <td><%= item.timestamp %></td>
 
             <form  action="/banking/accept_transaction" method="post">
