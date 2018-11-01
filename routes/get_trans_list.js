@@ -8,14 +8,14 @@ const config = require("../config/config.json");
 var Trans = require('../models/transaction');
 
 
-var authenticate = function(req, res, next){
+var authenticate = function (req, res, next) {
 
-    if(req.user){
+    if (req.user) {
         next();
-    }else{
+    } else {
         res.render("login", {
             title: "Login",
-            captcha:res.recaptcha
+            captcha: res.recaptcha
         });
     }
 
@@ -23,27 +23,32 @@ var authenticate = function(req, res, next){
 
 router.use(authenticate);
 
-router.get("/", function(req, res){
+router.get("/", function (req, res) {
     res.render("get_trans_list", {title: "Get Transactions in Range", trans: null})
 });
 
 
-
-router.post("/get_list", function(req, res){
+router.post("/get_list", function (req, res) {
     console.log(req.body.from, req.body.to);
-    Trans.find({from: req.user.username,
-        timestamp: {$gte: new Date(req.body.from),
-            $lt: new Date(req.body.to)}},
+    Trans.find({
+            from: req.user.username,
+            timestamp: {
+                $gte: new Date(req.body.from),
+                $lt: new Date(req.body.to)
+            }
+        },
         function (err, trans) {
-        if (err) {
-            console.log(err);
-            res.send("sunthin wong");
-        }
-        else {
-            res.render("get_trans_list", {title: "Change Range",
-                trans: trans});
-        }
-    })
+            if (err) {
+                console.log(err);
+                res.send("sunthin wong");
+            }
+            else {
+                res.render("get_trans_list", {
+                    title: "Change Range",
+                    trans: trans
+                });
+            }
+        })
 
 });
 

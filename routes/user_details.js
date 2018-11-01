@@ -8,14 +8,14 @@ const config = require("../config/config.json");
 var Trans = require('../models/transaction');
 
 
-var authenticate = function(req, res, next){
+var authenticate = function (req, res, next) {
 
-    if(req.user){
+    if (req.user) {
         next();
-    }else{
+    } else {
         res.render("login", {
             title: "Login",
-            captcha:res.recaptcha
+            captcha: res.recaptcha
         });
     }
 
@@ -23,8 +23,8 @@ var authenticate = function(req, res, next){
 
 router.use(authenticate);
 
-router.get("/", function(req, res){
-    res.render("user_details", {title: "Your Details", trans: null})
+router.get("/", function (req, res) {
+    res.render("user_details", {title: "Your Details", name: req.user.name, ph: req.user.phone, dob: req.user.dob, bal: req.user.amount})
 });
 
 

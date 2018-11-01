@@ -5,14 +5,14 @@ var router = express.Router();
 var Bank = require("../models/bank");
 var transaction = require('../models/transaction');
 
-var authenticate = function(req, res, next){
+var authenticate = function (req, res, next) {
 
-    if(req.user){
+    if (req.user) {
         next();
-    }else{
+    } else {
         res.render("login", {
             title: "Login",
-            captcha:res.recaptcha
+            captcha: res.recaptcha
         });
     }
 
@@ -28,7 +28,7 @@ router.get("/", function (req, res) {
         if (err) {
             console.error(err);
             res.send("Something went wrong")
-        }else{
+        } else {
             res.send(result)
         }
 

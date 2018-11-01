@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Transaction = new Schema({
     from: String,
     to: String,
-    amount:  Number,
+    amount: Number,
     status: Number,
     timestamp: {type: Date, default: Date.now},
     balance: Number
