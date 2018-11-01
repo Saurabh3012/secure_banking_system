@@ -147,7 +147,7 @@ router.post("/accept_transaction", function (req, res) {
                         if(userError)
                             return res.status(500).send(userError);
                         else{
-                            if(userAccount.amount>=executeTransaction.amount && executeTransaction.amount>0){
+                            if(userAccount.amount>=executeTransaction.amount && executeTransaction.amount>0 && executeTransaction.status == -1){
 
                                 Accounts.findOne(
                                     {username: executeTransaction.from},
