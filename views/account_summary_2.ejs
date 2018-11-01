@@ -12,6 +12,7 @@
 </form>
 
 <a href="/logout">Logout</a><br/>
+<h2>Your balance is <%= bal %></h2>
 
 <table>
     <th>To</th>
@@ -43,7 +44,7 @@
         
         <% if (allTransaction){
         allTransaction.forEach(function (item) {
-            if (item.status==-1) {
+            if (item.status==-1 && item.amount < 100000) {
         %>
         <tr>
         	<td><%= item.from %></td>
@@ -66,9 +67,6 @@
         <%}}) }%>
 </table>
 
-<% if (userRole==3) {%>
-    <h1>Third row</h1>
-<%}%>
 <a href="/make_transaction"></a><br/>
 <a href="/get_trans_list">Get Transactions in range</a>
 

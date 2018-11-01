@@ -7,8 +7,12 @@
 <body>
 <h1><%= title %></h1>
 
+<form action="/account_summmary_2" method="post">
+
+</form>
 
 <a href="/logout">Logout</a><br/>
+<h2>Your balance is <%= bal %></h2>
 
 <table>
     <th>To</th>
@@ -18,7 +22,7 @@
 
     <% if (allTransactions){
     allTransactions.forEach(function (item) {
-    if(item.from==userName) {
+        if(item.from==userName) {
     %>
         <tr>
             <td><%= item.to %></td>
@@ -26,25 +30,22 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
         </tr>
-    <% }%>
-<%}) }%>
+    <% }}) }%>
 </table>
 <br>
 <br>
 <br>
 <table>
-    <th>From</th>
-    <th>To</th>
-    <th>Amount</th>
-    <th>Status</th>
-    <th>Datetime</th>
-    <th>Accept</th>
-    <th>Reject</th>
-
-    <% if (allTransaction){
-    allTransaction.forEach(function (item) {
-    if (item.status==-1) {
-    %>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Datetime</th>
+        
+        <% if (allTransactions){
+        allTransactions.forEach(function (item) {
+            if (item.status==-1 && item.amount > 100000) {
+        %>
         <tr>
             <td><%= item.from %></td>
             <td><%= item.to %></td>
@@ -52,14 +53,21 @@
             <td><%= item.status %></td>
             <td><%= item.timestamp %></td>
 
-            <td><input type="submit" value="Accept" /></td>
-            <td><input type="submit" value="Reject" ></td>
+            <form  action="/banking/accept_transaction" method="post">
+                <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
+                <td><input type="submit" value="Accept" /></td>
+            </form>
+
+            <form  action="/banking/reject_transaction" method="post">
+                <td><input type="hidden" value=<%=item._id%> name="transactionID" /></td>
+                <td><input type="submit" value="Reject" ></td>
+            </form>
 
         </tr>
-    <% }}) }%>
+        <%}}) }%>
 </table>
 
-<a href="/make_transaction">Make a transaction</a><br/>
+<a href="/make_transaction"></a><br/>
 <a href="/get_trans_list">Get Transactions in range</a>
 
 </body>

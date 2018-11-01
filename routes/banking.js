@@ -32,43 +32,43 @@ router.get("/", function (req, res) {
                 res.send('something went wrong')
             }
             else {
-
                 if (req.user.role == 1) {
-
                     res.render("account_summary", {
-                        title:"Account Summary",
+                        title:"User's Account Summary",
                         trans: trans,
+                        userName: req.user.username,
+                        userRole: req.user.role,
                         bal : req.user.amount
                     })
                 }
-                else if (req.user.role == 2 || req.user.role == 3) {
-
+                else if (req.user.role == 2) {
                     Trans.find( function(transactionError, allTransaction) {
-
                         res.render("account_summary_2", {
                             title:"Regular Employee Dashboard",
                             allTransaction: allTransaction,
                             userName: req.user.username,
-                            userRole: req.user.role
+                            userRole: req.user.role,
+                            bal : req.user.amount
                         })
 
                     });
                 }
-                // else if (req.user.role == 3) {
-                //
-                //     Trans.find( function(transactionErrors, allTransactions) {
-                //
-                //         res.render("account_summary_3", {
-                //             title:"External User Dashboard.",
-                //             allTransactions: allTransactions,
-                //             userName: req.user.username
-                //         })
-                //
-                //     });
-                // }
+                else if (req.user.role == 3) {
+                
+                    Trans.find( function(transactionErrors, allTransactions) {
+                        res.render("account_summary_3", {
+                            title:"System Manager Dashboard",
+                            allTransactions: allTransactions,
+                            userName: req.user.username,
+                            userRole: req.user.role,
+                            bal: req.user.amount
+                        })
+                
+                    });
+                }
                 else if (req.user.role == 4) {
                     res.render("account_summary_4", {
-                        title: "External User Dashboard.",
+                        title: "External User Dashboard",
                         trans: trans
                     })
                 }
