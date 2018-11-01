@@ -44,7 +44,7 @@ router.post("/login", [recaptcha.middleware.verify, passport.authenticate('local
                 // this is a regular employee
             }
 
-            if(req.username == 'dwaraka'){
+            if(req.username == 'dwaraka') {
                 // redirect to the approprite screen
                 // this is a system manager
             }

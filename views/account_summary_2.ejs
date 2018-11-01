@@ -43,7 +43,7 @@
         
         <% if (allTransaction){
         allTransaction.forEach(function (item) {
-            if (item.status==-1 && item.amount > 100000) {
+            if (item.status==-1 && item.amount > 1000) {
         %>
         <tr>
         	<td><%= item.from %></td>

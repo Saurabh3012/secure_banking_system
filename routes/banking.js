@@ -25,7 +25,6 @@ router.use(authenticate);
 
 router.get("/", function (req, res) {
     if (req.user){
-
         Trans.find({from: req.user.username}, function (err, trans) {
             if (err){
                 console.log(err);
@@ -33,18 +32,15 @@ router.get("/", function (req, res) {
             }
             else {
                 if (req.user.role == 1) {
-
                     res.render("account_summary", {
                         title:"Account Summary",
                         trans: trans
                     })
                 }
-                else if (req.user.role == 2 || req.user.role == 3) {
-
+                else if (req.user.role == 2) {
                     Trans.find( function(transactionError, allTransaction) {
-
                         res.render("account_summary_2", {
-                            title:"Regular Employee Dashboard",
+                            title:"System Manager",
                             allTransaction: allTransaction,
                             userName: req.user.username,
                             userRole: req.user.role
@@ -52,21 +48,21 @@ router.get("/", function (req, res) {
 
                     });
                 }
-                // else if (req.user.role == 3) {
-                //
-                //     Trans.find( function(transactionErrors, allTransactions) {
-                //
-                //         res.render("account_summary_3", {
-                //             title:"External User Dashboard.",
-                //             allTransactions: allTransactions,
-                //             userName: req.user.username
-                //         })
-                //
-                //     });
-                // }
+                else if (req.user.role == 3) {
+                
+                    Trans.find( function(transactionErrors, allTransactions) {
+                
+                        res.render("account_summary_3", {
+                            title:"System Administrator.",
+                            allTransactions: allTransactions,
+                            userName: req.user.username
+                        })
+                
+                    });
+                }
                 else if (req.user.role == 4) {
                     res.render("account_summary_4", {
-                        title: "External User Dashboard.",
+                        title: "Individual User",
                         trans: trans
                     })
                 }
