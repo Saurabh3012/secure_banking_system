@@ -33,7 +33,7 @@ router.get("/", function (req, res) {
                 // console.log(req.user.role);
                 if (req.user.role == 1) {
                     res.render("account_summary", {
-                        title:"User's Account Summary",
+                        title:"User's Account Summary Dashboard",
                         trans: trans,
                         userName: req.user.username,
                         userRole: req.user.role,
@@ -66,7 +66,7 @@ router.get("/", function (req, res) {
                 }
                 else if (req.user.role == 4) {
                     res.render("account_summary_4", {
-                        title: "Merchant",
+                        title: "Merchant Dashboard",
                         trans: trans,
                         userName: req.user.username,
                         userRole: req.user.role,
@@ -75,7 +75,7 @@ router.get("/", function (req, res) {
                 }
                 else if (req.user.role == 5) {
                     res.render("account_summary_5", {
-                        title: "System Administrator",
+                        title: "System Administrator Dashboard",
                         trans: trans,
                         userName: req.user.username,
                         userRole: req.user.role,
@@ -91,7 +91,6 @@ router.get("/", function (req, res) {
 
 //create bank account
 router.post("/", function (req, res) {
-
     res.send(req.user);
 
 });
